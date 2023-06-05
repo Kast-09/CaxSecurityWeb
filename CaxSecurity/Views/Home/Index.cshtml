@@ -1,8 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<CaxSecurity.Models.MapaCalor>
+
+@{
+    ViewData["Title"] = "Bienvenidos";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card">
+                        @{
+                            int sum = item.d1 + item.d2 + item.d3;
+                        }
+                        @if (sum == 0)
+                        {
+                            <img src="/Imagenes/img_seguro.jpg" class="card-img-top" alt="imagen estado">
+                        }else if (sum > 0 && sum < 5)
+                        {
+                            <img src="/Imagenes/img_advertencia.jpg" class="card-img-top" alt="imagen estado">
+                        }else{
+                            <img src="/Imagenes/img_peligro.jpg" class="card-img-top" alt="imagen estado">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@item.nombre</h5>
+                            <p class="card-text">@item.estado</p>
+                        </div>
+                    </div>
+                </div>
+        }
+        </div> 
+    </div>
 </div>
