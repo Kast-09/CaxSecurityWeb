@@ -1,3 +1,43 @@
-﻿<div>
-    <h1>Mi perfil</h1>
+﻿@model CaxSecurity.Models.Usuario
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<style>
+    .contenedor-flexbox {
+        display: flex; /*Convertimos al menú en flexbox*/
+        justify-content: space-between; /*Con esto le indicamos que margine todos los items que se encuentra adentro hacia la derecha e izquierda*/
+        align-items: center; /*con esto alineamos de manera vertical*/
+    }
+</style>
+
+<div class="container">
+    <div class="contenedor-flexbox">
+        <div style="width:25%; display:inline-block;">
+            @if (Model.photo != "")
+            {
+                <img src="@Model.photo" style="border-radius: 50%;" alt="Foto de perfil" height="200" width="200">
+            }
+            else
+            {
+                <i style="width:100px;height:100px" class="bi bi-person"></i>
+            }
+        </div>
+        <div style="width:75%; display:inline-block;">
+            <h3>@Model.nombre</h3><br />
+            <h6><b>ID: </b> @Model.id</h6>
+            <h6><b>DNI: </b> @Model.dni</h6>
+            <h6><b>Teléfono: </b> @Model.telefono</h6>
+            <h6><b>Correo: </b> @Model.correo</h6>
+            @if (Model.baneado == 0)
+            {
+                <h6><b>Baneado: </b>Usuario no baneado</h6>
+            }
+            else
+            {
+                <h6><b>Baneado: </b>Usuario baneado</h6>
+            }
+        </div>
+    </div>    
 </div>

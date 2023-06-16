@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CaxSecurity.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+@*<h1>Usuarios</h1>
+<br />*@
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Foto</th>
+                <th>N° DNI</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Baneado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center;">
+                        @if(item.photo != "")
+                        {
+                            <img src="@item.photo" style="border-radius: 50%;" alt="Foto de perfil" height="30" width="30">
+                        }
+                        else{
+                            <img src="/Imagenes/ic_perfil.png" alt="Foto de perfil" height="30" width="30">
+                        }
+                    </td>
+                    <td>@item.dni</td>
+                    <td>@item.nombre</td>
+                    <td>@item.telefono</td>
+                    <td>
+                        @if (item.baneado == 0)
+                        {
+                            <span>Usuario no baneado</span>
+                        }
+                        else
+                        {
+                            <span>Usuario baneado</span>
+                        }
+                    </td>
+                    <td style="text-align:center;"><a href="/Usuarios/VerUsuario?id=@item.id"><i class="bi bi-eye"></i></a></td>
+                </tr>                
+            }
+        </tbody>
+    </table>
+</div>

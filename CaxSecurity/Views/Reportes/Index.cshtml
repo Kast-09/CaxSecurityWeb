@@ -1,29 +1,48 @@
-﻿@model IEnumerable<CaxSecurity.Models.Reportes>
+﻿@model IEnumerable<CaxSecurity.Models.ReportesIntermedia>
 
 @{
-    ViewData["Title"] = "Bienvenidos";
+    ViewData["Title"] = "Reportes";
 }
 
 <div class="container">
     <div class="container">
-        <table class="table">
-            <thead>
+        <table class="table table-bordered">
+            <thead class=" table-dark">
                 <tr>
+                    <th scope="col">Tipo de reporte</th>
                     <th scope="col">Descripción reporte</th>
                     <th scope="col">Nombre Barrio</th>
-                    <th scope="col">Tipo Reporte</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Referencia</th>
+                    <th scope="col">Enlace multimedia</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach(var item in Model)
                 {
                     <tr>
+                        <td>@item.tipoReporte</td>
                         <td>@item.descripcionReporte</td>
                         <td>@item.nombreBarrio</td>
-                        <td>@item.tipoReporte</td>
+                        <td>@item.direccion</td>
+                        <td>@item.referencia</td>
+                        @if(item.linkMultimedia != "")
+                        {
+                            <td style="text-align:center;"><a href="@item.linkMultimedia"><i class="bi bi-fast-forward-btn" style="color:green"></i></a></td>
+                        }
+                        else
+                        {
+                            <td style="text-align:center;"><a href="#"><i class="bi bi-fast-forward-btn" style="color:gray"></i></a></td>
+                        }
+                        <td>@item.estado</td>
+                        <td><a class="btn" onclick="$('#modalVerReportes').modal('show');ver_ids('@item.idUsuario', '@item.idReporte');"><i class="bi bi-eye"></i></a></td>
                     </tr>
                 }                
             </tbody>
         </table>
     </div>
 </div>
+
+@Html.Partial("_ModalDetallesReporte")

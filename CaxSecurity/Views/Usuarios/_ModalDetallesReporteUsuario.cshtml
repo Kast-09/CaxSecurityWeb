@@ -1,0 +1,24 @@
+﻿<div id="modalVerReportesUsuario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:black;">
+                <h4 class="modal-title" style="color:white">Reporte</h4>
+            </div>
+            <div class="container-fluid" id="aux">
+
+            </div>            
+        </div>
+    </div>
+</div>
+
+<script>
+    ver_ids = function (idUsuario, idReporte) {
+        $.post(
+            '/Usuarios/verIds', {
+            idUsuario: idUsuario,
+            idReporte: idReporte
+        }, function (res) {
+            $('#aux').html(res)
+        });
+    };
+</script>

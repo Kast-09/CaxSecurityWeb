@@ -8,46 +8,178 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CaxSecurity.styles.css" asp-append-version="true" />
     <link rel="icon" href="/Imagenes/LogoCaxSecurityFinal2.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/StyleLayout.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/js/bootstrap.bundle.js" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/Imagenes/LogoCaxSecurityFinal2.png" alt="" width="30" class="d-inline-block align-text-top">CaxSecurity
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Reportes" asp-action="Index">Reportes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="MiPerfil" asp-action="Index">Perfil</a>
-                        </li>
-                    </ul>
+    <div class="main-container d-flex">
+        <div class="sidebar" id="side_nav">
+            <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
+                <h1 class="fs-4">
+                    <img src="/Imagenes/LogoCaxSecurityFinal2.png" alt="" width="30" class="d-inline-block align-text-top">
+                    <span class="text-white">CaxSecurity</span>
+                </h1>
+                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><span class="fs-4"><i class="bi bi-justify"></i></span></button>
+            </div>
+            <ul class="list-unstyled px-2">
+                <li class="">
+                    <a class="nav-link text-decoration-none px-3 py-2 d-block" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-map"></i> Mapa de calor
+                    </a>
+                </li>
+                <li class="">                    
+                    <a class="nav-link text-decoration-none px-3 py-2 d-block" asp-area="" asp-controller="Reportes" asp-action="Index">
+                        <i class="bi bi-clipboard-check"></i> Reportes
+                    </a>
+                </li>      
+                <li class="">
+                    <a class="nav-link text-decoration-none px-3 py-2 d-block" asp-area="" asp-controller="Usuarios" asp-action="Index">
+                        <i class="bi bi-people"></i> Usuarios
+                    </a>
+                </li>
+            </ul>
+            <hr class="h-color mx-2">
+            <ul class="list-unstyled px-2">
+                <li>
+                    <a class="nav-link px-3 sidebar-link"
+                       data-bs-toggle="collapse"
+                       href="#layouts">
+                        <span class="me-2"><i class="bi bi-clipboard-check"></i></span>
+                        <span>Reportes</span>
+                        <span class="ms-auto">
+                            <span class="right-icon">
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <div class="collapse" id="layouts">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a asp-area="" asp-controller="Reportes" asp-action="Index" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-envelope-fill"></i>
+                                    </span>
+                                    <span>Recibidos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse" id="layouts">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="#" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-folder-check"></i>
+                                    </span>
+                                    <span>Se tomo conocimiento</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse" id="layouts">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="#" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-car-front"></i>
+                                    </span>
+                                    <span>Constituyendose al lugar de los hechos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse" id="layouts">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="#" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-check-circle"></i>
+                                    </span>
+                                    <span>Resuelto</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse" id="layouts">
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="#" class="nav-link px-3">
+                                    <span class="me-2">
+                                        <i class="bi bi-x-circle"></i>
+                                    </span>
+                                    <span>Cancelado</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <hr class="h-color mx-2">
+            <ul class="list-unstyled px-2" style="align-content:end">
+                <li class="">
+                    <a class="nav-link text-decoration-none px-3 py-2 d-block" asp-area="" asp-controller="MiPerfil" asp-action="Index">
+                        <i class="bi bi-person"></i> Perfil
+                    </a>
+                </li>
+                <li class="">
+                    <a class="nav-link text-decoration-none px-3 py-2 d-block" asp-area="" asp-controller="Auth" asp-action="LogOut">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark d-md-none d-block" id="header">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between">
+                        <a class="navbar-brand fs-4" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="/Imagenes/LogoCaxSecurityFinal2.png" alt="" width="30" class="d-inline-block align-text-top">CaxSecurity
+                        </a>
+                    </div>
+                    <button class="navbar-toggler open-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                    </button>                    
+                </div>
+            </nav>
+            <div class="dashboard-content px-3 pt-4" id="content-body">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <!--<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - CaxSecurity
         </div>
-    </footer>-->
+    </div>    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <script src="./js/jquery.dataTables.min.js"></script>
+    <script src="./js/dataTables.bootstrap5.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        $('.sidebar ul li').on('click' , function(){
+            $('.sidebar ul li.active').removeClass('active');
+            $(this).addClass('active');            
+        });
+        $('.open-btn').on('click', function () {
+            $('.sidebar').addClass('active');
+        });
+        $('.close-btn').on('click', function () {
+            $('.sidebar').removeClass('active');
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

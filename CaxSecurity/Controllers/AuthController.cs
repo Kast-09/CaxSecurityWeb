@@ -1,43 +1,59 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CaxSecurity.Models;
+using Firebase.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CaxSecurity.Controllers
 {
     public class AuthController : Controller
     {
-        private static string ApiKey = "AIzaSyD0wFVmCaWbAYYfPXfPKv8n2rRx4PPsDlU";
-        //private static string Bucket = "asp-mvc-with-android.appspot.com";
+        FirebaseAuthProvider auth;
 
-        //GET: Account
-        /*public ActionResult SignUp()
+        public AuthController() {
+            auth = new FirebaseAuthProvider(
+                                new FirebaseConfig("AIzaSyD0wFVmCaWbAYYfPXfPKv8n2rRx4PPsDlU"));
+        }
+
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
-        }*/
+        }
 
-        /*[HttpPost]
-        [AllowAnonymous]
-        public async Task<ActionResult> SignUp(SignUpModel model)
+        [HttpPost]
+        public async Task<IActionResult> Login(UserModel loginModel)
         {
-
-        }*/
-
-        /*[AllowAnonymous]
-        [HttpGet]*/
-        public IActionResult Login(string returnUrl)
-        {
-            /*try
+            try
             {
-                //verificacion
-                if (User.Identity.IsAuthenticated)
+                //log in an existing user
+                var fbAuthLink = await auth
+                                .SignInWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);
+                string token = fbAuthLink.FirebaseToken;
+                string idUser = fbAuthLink.User.LocalId.ToString();
+                //save the token to a session variable
+                if (token != null)
                 {
-                    //return this.RedirectToLocal(returnUrl);
+                    HttpContext.Session.SetString("_UserToken", token);
+                    HttpContext.Session.SetString("_UserId", idUser);
+
+                    return RedirectToAction("Index","Home");
                 }
+
             }
-            catch(Exception ex)
+            catch (FirebaseAuthException ex)
             {
-                Console.WriteLine(ex);
-            }*/
+                var firebaseEx = JsonConvert.DeserializeObject<FirebaseError>(ex.ResponseData);
+                ModelState.AddModelError("AuthError", firebaseEx.error.message);
+                return View(loginModel);
+            }
+
             return View();
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("_UserToken");
+            return RedirectToAction("Login");
         }
     }
 }

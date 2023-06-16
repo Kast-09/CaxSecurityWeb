@@ -1,6 +1,6 @@
 ﻿namespace CaxSecurity.Models
 {
-    public class Reportes
+    public class ReportesIntermedia
     {
         public string Id { get; set; }
         public string descripcionReporte { get; set; }
@@ -12,6 +12,8 @@
         public string nombreBarrio { get; set; }
         public string referencia { get; set; }
         public string tipoReporte { get; set; }
+        public string idReporte { get; set; }
+        public string idUsuario { get; set; }
         public string tipoMultimedia { get; set; }
     }
 }

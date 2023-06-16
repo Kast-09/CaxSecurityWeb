@@ -1,0 +1,85 @@
+﻿@model CaxSecurity.Models.Usuario
+
+@{
+    ViewBag.Title = "Ver Usuario";
+}
+
+<style>
+    .contenedor-flexbox {
+        display: flex; /*Convertimos al menú en flexbox*/
+        justify-content: space-between; /*Con esto le indicamos que margine todos los items que se encuentra adentro hacia la derecha e izquierda*/
+        align-items: center; /*con esto alineamos de manera vertical*/
+    }
+</style>
+
+<div class="container">
+    <div class="contenedor-flexbox">
+        <div style="width:25%; display:inline-block;">
+            @if (Model.photo != "")
+            {
+                <img src="@Model.photo" style="border-radius: 50%;" alt="Foto de perfil" height="200" width="200">
+            }
+            else
+            {
+                <img src="/Imagenes/ic_perfil.png" alt="Foto de perfil" height="200" width="200">
+            }
+        </div>
+        <div style="width:75%; display:inline-block;">
+            <h3>@Model.nombre</h3><br />
+            <h6><b>ID: </b> @Model.id</h6>
+            <h6><b>DNI: </b> @Model.dni</h6>
+            <h6><b>Teléfono: </b> @Model.telefono</h6>
+            <h6><b>Correo: </b> @Model.correo</h6>
+            @if (Model.baneado == 0)
+            {
+                <h6><b>Baneado: </b>Usuario no baneado</h6>
+            }
+            else
+            {
+                <h6><b>Baneado: </b>Usuario baneado</h6>
+            }
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <h4>Reportes realizados</h4><br />
+        <table class="table table-bordered">
+            <thead class=" table-dark">
+                <tr>
+                    <th scope="col">Tipo de reporte</th>
+                    <th scope="col">Descripción reporte</th>
+                    <th scope="col">Nombre Barrio</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Referencia</th>
+                    <th scope="col">Enlace multimedia</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<ReportesIntermedia>)ViewBag.reportes)
+                {
+                    <tr>
+                        <td>@item.tipoReporte</td>
+                        <td>@item.descripcionReporte</td>
+                        <td>@item.nombreBarrio</td>
+                        <td>@item.direccion</td>
+                        <td>@item.referencia</td>
+                        @if (item.linkMultimedia != "")
+                        {
+                            <td style="text-align:center;"><a href="@item.linkMultimedia"><i class="bi bi-fast-forward-btn" style="color:green"></i></a></td>
+                        }
+                        else
+                        {
+                            <td style="text-align:center;"><a href="#"><i class="bi bi-fast-forward-btn" style="color:gray"></i></a></td>
+                        }
+                        <td>@item.estado</td>
+                        <td><a class="btn" onclick="$('#modalVerReportesUsuario').modal('show');ver_ids('@item.idUsuario', '@item.idReporte');"><i class="bi bi-eye"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_ModalDetallesReporteUsuario")
