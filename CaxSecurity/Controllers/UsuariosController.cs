@@ -87,24 +87,27 @@ namespace CaxSecurity.Controllers
 
             List<ReportesIntermedia> reportes = new List<ReportesIntermedia>();
 
-            foreach (KeyValuePair<string, Reportes> elemento in lista)
+            if(lista != null)
             {
-                reportes.Add(new ReportesIntermedia()
+                foreach (KeyValuePair<string, Reportes> elemento in lista)
                 {
-                    idUsuario = id,
-                    idReporte = elemento.Key,
-                    descripcionReporte = elemento.Value.descripcionReporte,
-                    direccion = elemento.Value.direccion,
-                    estado = elemento.Value.estado,
-                    fecha = elemento.Value.fecha,
-                    linkMultimedia = elemento.Value.linkMultimedia,
-                    nombreBarrio = elemento.Value.nombreBarrio,
-                    referencia = elemento.Value.referencia,
-                    tipoReporte = elemento.Value.tipoReporte
-                });
+                    reportes.Add(new ReportesIntermedia()
+                    {
+                        idUsuario = id,
+                        idReporte = elemento.Key,
+                        descripcionReporte = elemento.Value.descripcionReporte,
+                        direccion = elemento.Value.direccion,
+                        estado = elemento.Value.estado,
+                        fecha = elemento.Value.fecha,
+                        linkMultimedia = elemento.Value.linkMultimedia,
+                        nombreBarrio = elemento.Value.nombreBarrio,
+                        referencia = elemento.Value.referencia,
+                        tipoReporte = elemento.Value.tipoReporte
+                    });
+                }
+                ViewBag.reportes = reportes;
             }
-
-            ViewBag.reportes = reportes;
+            else ViewBag.reportes = new List<ReportesIntermedia>();
 
             return View(usuario);
         }
